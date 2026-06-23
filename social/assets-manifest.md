@@ -13,11 +13,12 @@
 | Metric | Count | Notes |
 |---|---|---|
 | **CDN-downloadable files** | 41 | Listed in `cdn-inventory.txt`; fetched via `./scripts/download-assets.sh` |
-| **Local-only image files** | 2 | `company/brand/assets/images/graphics/air-fryer-chart-final-preview.png`, `company/brand/assets/logos/artboard-2.svg` |
-| **Total image files on disk** | 43 | 41 CDN + 2 local-only |
-| **Tracked in git** | 3 | `manifest.md`, `cdn-inventory.txt`, `artboard-2.svg` — bulk images gitignored |
+| **CDN photography in repo** | 29 | `photography/product/` + `photography/lifestyle/` |
+| **Hi-res archive JPGs** | 36 | `photography/archive/` — full-res edits, not all on CDN |
+| **Chart protein icons** | 25 | `icons/chart/` (20–512px) + 2 zip bundles |
+| **Temp chart deliverables** | 11 | `creative/deliverables/temp-chart/` (briefs, reviews, PDF) |
 
-Re-verify after changes: `find assets -type f ! -name 'manifest.md' ! -name 'cdn-inventory.txt' | wc -l` → expect **43**.
+Re-verify CDN files: `./scripts/download-assets.sh --skip-discover`
 
 ---
 
@@ -25,12 +26,14 @@ Re-verify after changes: `find assets -type f ! -name 'manifest.md' ! -name 'cdn
 
 | Category | Count | Location |
 |---|---|---|
-| Product photography | 9 | `company/brand/assets/images/photography/product/` |
-| Lifestyle / in-use | 13 | `company/brand/assets/images/photography/lifestyle/` |
+| Product photography (CDN) | 9 | `company/brand/assets/images/photography/product/` |
+| Lifestyle / in-use (CDN) | 13 | `company/brand/assets/images/photography/lifestyle/` |
+| Hi-res archive | 36 | `company/brand/assets/images/photography/archive/` |
 | Graphics & composites | 9 | `company/brand/assets/images/graphics/` (includes temperature chart) |
 | AI-generated (archive) | 7 | `company/brand/assets/images/photography/ai-generated/` |
-| Icons | 3 | `company/brand/assets/images/icons/` |
-| Logo | 2 | `company/brand/assets/logos/` — SVG (primary) + deprecated raster |
+| Site icons | 3 | `company/brand/assets/images/icons/` |
+| Chart protein icons | 25 | `company/brand/assets/images/icons/chart/` |
+| Logo & label | 8+ | `company/brand/assets/logos/` |
 
 ---
 
@@ -54,8 +57,34 @@ Re-verify after changes: `find assets -type f ! -name 'manifest.md' ! -name 'cdn
 | `company/brand/assets/logos/artboard-2-icon.svg` | Transparent | Cropped wordmark — social avatars (min 48px) |
 | `company/brand/assets/logos/artboard-2-icon-reverse.svg` | Transparent | Icon for orange backgrounds |
 | `company/brand/assets/logos/Screenshot_2025-12-03_at_14.05.26.png` | — | Site header raster — **deprecated** |
+| `company/brand/assets/logos/air-fryer-label.svg` | Transparent | Packaging / label artwork (from chart work) |
+| `company/brand/assets/logos/air-fryer-label.png` | Transparent | Label raster export |
 
-**Routing:** See `design.md` § Logo Usage for which file per background.
+**Routing:** See `company/brand/design.md` § Logo Usage for which file per background.
+
+---
+
+## Chart protein icons
+
+Custom icons for the magnetic temperature guide. Sizes: 20px, 32px, 64px, 512px.
+
+| Location | Contents |
+|---|---|
+| `company/brand/assets/images/icons/chart/512px/` | `afp-icon-beef`, `fish`, `poultry`, `pork`, `burger`, `ready-meals` |
+| `company/brand/assets/images/icons/chart/64px/` | Same set |
+| `company/brand/assets/images/icons/chart/32px/` | Same set |
+| `company/brand/assets/images/icons/chart/20px/` | Same set |
+| `company/brand/assets/images/icons/chart/*.zip` | Bundled exports |
+
+---
+
+## Photography — hi-res archive
+
+Full-resolution edited JPGs from the photo shoot. Not all published to Shopify CDN. Use for print, pitch decks, or re-export.
+
+**Location:** `company/brand/assets/images/photography/archive/` (36 files, ~424 MB)
+
+Includes `AFP_EDIT_*.jpg`, `DSCF*.jpg` from the Selected edit set.
 
 ---
 
