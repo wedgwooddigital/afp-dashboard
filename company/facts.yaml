@@ -26,7 +26,7 @@ website:
 
 urls:
   public_website: https://airfryerprobe.com
-  dashboard_netlify: https://air-fryer-ops.netlify.app
+  dashboard_netlify: https://afp-dashboard.netlify.app
   dashboard_config: dashboard/src/config/site.ts
 
 social:
@@ -40,9 +40,9 @@ google:
 
 repos:
   ops:
-    name: air-fryer-ops
+    name: afp-dashboard          # GitHub repo slug (already correct)
     relative_path: .
-    github_remote: https://github.com/wedgwooddigital/air-fryer-ops.git
+    github_remote: https://github.com/wedgwooddigital/afp-dashboard.git
 
 billing:
   current_source: tbc

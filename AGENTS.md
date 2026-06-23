@@ -1,4 +1,4 @@
-# Agent Instructions — Air Fryer Probe Ops
+# Agent Instructions — Air Fryer Probe Dashboard
 
 Operational workspace for **Air Fryer Probe** (Ben Cribb). Graphic design client — live site on Shopify (not built by us). Use this repo for creative production, social, marketing pitches, billing, and the password-protected **client dashboard**.
 
@@ -76,7 +76,7 @@ local/                    Gitignored sensitive notes
 1. Add markdown to `content/documents/` or `content/updates/`
 2. Set `clientVisible: true` only when ready for Ben
 3. `cd dashboard && npm run build`
-4. Deploy `air-fryer-ops.netlify.app` with password protection
+4. Deploy `afp-dashboard.netlify.app` with password protection
 
 ## Out of scope
 

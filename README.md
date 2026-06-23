@@ -1,9 +1,9 @@
-# Air Fryer Probe — Client Ops
+# Air Fryer Probe — Client Dashboard
 
 Operational workspace for **Air Fryer Probe** (Ben Cribb). UK DTC brand — 3-in-1 digital meat thermometer bundle for air fryer cooking.
 
 **Live site:** [airfryerprobe.com](https://airfryerprobe.com) (Shopify — reference only)  
-**Dashboard:** [air-fryer-ops.netlify.app](https://air-fryer-ops.netlify.app) (when deployed, password-protected)
+**Dashboard:** [afp-dashboard.netlify.app](https://afp-dashboard.netlify.app) (when deployed, password-protected)
 
 ## What's here
 

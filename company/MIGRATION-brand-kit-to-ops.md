@@ -2,7 +2,7 @@
 
 Use this when an existing workspace is a **brand kit / AI content brain** (not built on `client_ops_template`) and you want to align it with the standard ops layout without losing brand research.
 
-**Worked example:** [`air_fryer_ops` → `air_fryer_ops`](../../air_fryer_ops/tasks.md) — full audit, decisions, and phased checklist for Air Fryer Probe.
+**Worked example:** [`air_fryer_probe_cursor` → `air_fryer_dashboard`](../../air_fryer_dashboard/tasks.md) — full audit, decisions, and phased checklist for Air Fryer Probe.
 
 ## When this applies
 
