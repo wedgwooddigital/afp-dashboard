@@ -206,6 +206,64 @@ _copy_assets_dir() {
   done
 }
 
+_copy_logos_for_dashboard() {
+  local src_dir="${OPS_BRAND_ASSETS}/logos"
+  if [[ ! -d "$src_dir" ]]; then
+    return 0
+  fi
+  mkdir -p "${BRAND_ASSETS_OUT}/logos"
+  local f base ext
+  for f in "$src_dir"/*; do
+    [[ -e "$f" ]] || continue
+    [[ -f "$f" ]] || continue
+    base="$(basename "$f")"
+    ext="${base##*.}"
+    ext_lower="$(echo "$ext" | tr '[:upper:]' '[:lower:]')"
+    case "$base" in
+      Screenshot_*|Artboard\ 2.pdf) continue ;;
+    esac
+    if [[ "$ext_lower" == "svg" || "$base" == "air-fryer-label.png" ]]; then
+      cp "$f" "${BRAND_ASSETS_OUT}/logos/${base}"
+    fi
+  done
+}
+
+_yaml_dashboard_images() {
+  awk '
+    /^dashboard_assets:/ { in_da=1; next }
+    in_da && /^[^[:space:]-]/ { in_da=0 }
+    in_da && /^  images:/ { in_img=1; next }
+    in_img && /^  [a-zA-Z_]/ && !/^  images:/ { in_img=0 }
+    in_img && /^    - / {
+      sub(/^    - /, "")
+      gsub(/^["'\'']|["'\'']$/, "")
+      sub(/[[:space:]]+#.*$/, "")
+      print
+    }
+  ' "$WEBSITE_REPO_YAML" 2>/dev/null || true
+}
+
+_copy_curated_dashboard_images() {
+  local rel src copied=0
+  mkdir -p "${BRAND_ASSETS_OUT}/images"
+  while IFS= read -r rel; do
+    [[ -z "$rel" ]] && continue
+    src="${ROOT}/${rel}"
+    if [[ ! -f "$src" ]]; then
+      echo "sync-dashboard-brand: dashboard image not found: ${rel}" >&2
+      continue
+    fi
+    cp "$src" "${BRAND_ASSETS_OUT}/images/$(basename "$src")"
+    copied=$((copied + 1))
+  done < <(_yaml_dashboard_images)
+  if [[ "$copied" -eq 0 ]]; then
+    echo "sync-dashboard-brand: no dashboard_assets.images listed; copying full images tree" >&2
+    _copy_assets_dir "${OPS_BRAND_ASSETS}/images" "images"
+  else
+    echo "sync-dashboard-brand: copied ${copied} curated image(s) for dashboard"
+  fi
+}
+
 # ---------------------------------------------------------------------------
 # Brand doc sync definitions: yaml_key | ops_fallback | dest_slug | title | description | order | clientVisible
 # ---------------------------------------------------------------------------
@@ -297,8 +355,8 @@ sync_assets() {
   images_rel="$(_yaml_assets_value "images")"
 
   if [[ "$BRAND_SOURCE" == "ops_local" ]]; then
-    _copy_assets_dir "${OPS_BRAND_ASSETS}/logos" "logos"
-    _copy_assets_dir "${OPS_BRAND_ASSETS}/images" "images"
+    _copy_logos_for_dashboard
+    _copy_curated_dashboard_images
   else
     local logos_src images_src
     logos_src="${WEBSITE_REPO}/${logos_rel:-public/assets/logos}"

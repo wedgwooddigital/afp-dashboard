@@ -121,6 +121,7 @@ components:
     textColor: "#000000"
     rounded: "{rounded.sm}"
     padding: 12px
+clientVisible: true
 ---
 
 # Air Fryer Probe — Design System

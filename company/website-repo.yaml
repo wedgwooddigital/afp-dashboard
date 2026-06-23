@@ -17,6 +17,16 @@ assets:
   logos: company/brand/assets/logos
   images: company/brand/assets/images
 
+# Client dashboard asset gallery — curated subset (full library stays in ops)
+dashboard_assets:
+  images:
+    - company/brand/assets/images/photography/lifestyle/probe_haning_in_air_fryer.jpg
+    - company/brand/assets/images/photography/archive/AFP_EDIT_1_DSCF1530.jpg
+    - company/brand/assets/images/graphics/air_fryer_4_shot_guide.png
+    - company/brand/assets/images/graphics/air-fryer-chart-final-preview.png
+    - company/brand/assets/images/photography/lifestyle/probewithsteak.png
+    - company/brand/assets/images/photography/lifestyle/probe_with_rosemary.jpg
+
 indexes: {}
 
 # Resolve assets: ./scripts/resolve-website-asset.sh logos/artboard-2.svg

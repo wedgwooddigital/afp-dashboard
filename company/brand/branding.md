@@ -1,3 +1,7 @@
+---
+clientVisible: true
+---
+
 # Air Fryer Probe — Brand Guidelines
 
 > **Canonical source** when `company/facts.yaml` → `website.brand_source: ops_local`.  

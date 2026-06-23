@@ -1,3 +1,7 @@
+---
+clientVisible: true
+---
+
 # Air Fryer Probe — Voice and Messaging
 
 ## Voice profile
