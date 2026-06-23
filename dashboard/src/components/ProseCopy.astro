@@ -1,0 +1,60 @@
+---
+interface Props {
+  selector?: string;
+}
+
+const { selector = ".prose pre" } = Astro.props;
+---
+
+<script define:vars={{ selector }}>
+  function enhanceCopyBlocks(root = document) {
+    root.querySelectorAll(selector).forEach((pre) => {
+      if (pre.closest(".prompt-block") || pre.querySelector("code")?.dataset.copyWired) {
+        return;
+      }
+
+      const code = pre.querySelector("code");
+      if (!code) {
+        return;
+      }
+
+      code.dataset.copyWired = "true";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "prompt-block";
+
+      const header = document.createElement("div");
+      header.className = "prompt-block__header";
+
+      const label = document.createElement("span");
+      label.className = "prompt-block__label";
+      label.textContent = "Prompt";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "copy-prompt-btn";
+      button.textContent = "Copy";
+
+      header.append(label, button);
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.append(header, pre);
+
+      button.addEventListener("click", async () => {
+        const text = code.textContent ?? "";
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copied";
+          button.classList.add("is-copied");
+          window.setTimeout(() => {
+            button.textContent = "Copy";
+            button.classList.remove("is-copied");
+          }, 1600);
+        } catch {
+          button.textContent = "Failed";
+        }
+      });
+    });
+  }
+
+  enhanceCopyBlocks();
+</script>

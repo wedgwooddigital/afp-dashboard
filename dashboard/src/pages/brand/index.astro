@@ -1,0 +1,41 @@
+---
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import { site } from "../../config/site";
+import { loadBrandAssets } from "../../lib/brand-assets";
+import { formatDate, loadBrandPages, loadSidebarNav } from "../../lib/dashboard-nav";
+
+const { documentNav, updateNav } = await loadSidebarNav();
+const brandPages = await loadBrandPages();
+const { all: brandAssets } = loadBrandAssets();
+---
+
+<DashboardLayout
+  title={site.brandSection.title}
+  description={site.brandSection.description}
+  activeSection="brand"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <section class="panel">
+    <div class="card-list">
+      {
+        brandPages.length > 0 ? (
+          brandPages.map((page) => (
+            <a class="content-card" href={site.paths.brandPage(page.id)}>
+              <span class="content-card__meta">Updated · {formatDate(page.data.updated)}</span>
+              <h2>{page.data.title}</h2>
+              {page.data.description && <p>{page.data.description}</p>}
+            </a>
+          ))
+        ) : (
+          <p class="empty-state">{site.brandSection.listEmpty}</p>
+        )
+      }
+      <a class="content-card" href={site.paths.brandAssets}>
+        <span class="content-card__meta">Downloads · {brandAssets.length} file{brandAssets.length === 1 ? "" : "s"}</span>
+        <h2>{site.brandSection.assetsTitle}</h2>
+        <p>{site.brandSection.assetsDescription}</p>
+      </a>
+    </div>
+  </section>
+</DashboardLayout>

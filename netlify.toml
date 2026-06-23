@@ -1,4 +1,4 @@
-# Client ops template dashboard — https://wdclientdashboard.netlify.app/
+# AFP client dashboard — https://afp-dashboard.netlify.app/
 # Monorepo: Astro app lives in dashboard/. Netlify must build from that folder.
 
 [build]
@@ -16,7 +16,9 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    # frame-src/media-src allow embedded video over HTTPS. Source/type/delivery
+    # of video is intentionally provider-agnostic (TBC) — no host is hard-coded.
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; media-src 'self' https:; frame-src 'self' https:; script-src 'self'; style-src 'self' 'unsafe-inline'"
 
 [[redirects]]
   from = "/reports"

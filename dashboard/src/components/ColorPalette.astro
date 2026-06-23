@@ -1,0 +1,58 @@
+---
+import type { BrandColor } from "../lib/brand-colors";
+
+interface Props {
+  colors: BrandColor[];
+}
+
+const { colors } = Astro.props;
+---
+
+{
+  colors.length > 0 && (
+    <div class="color-palette" aria-label="Brand colour palette">
+      {colors.map((color) => (
+        <div class="color-swatch">
+          <span
+            class="color-swatch__chip"
+            style={`background-color: ${color.hex}`}
+            aria-hidden="true"
+          />
+          <div class="color-swatch__meta">
+            <strong>{color.name}</strong>
+            <code class="color-swatch__hex">{color.hex}</code>
+            {color.purpose && <span class="color-swatch__purpose">{color.purpose}</span>}
+          </div>
+          <button type="button" class="copy-hex-btn" data-hex={color.hex}>
+            Copy hex
+          </button>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  function wireCopyHexButtons(root: ParentNode = document) {
+    root.querySelectorAll<HTMLButtonElement>(".copy-hex-btn:not([data-wired])").forEach((button) => {
+      button.dataset.wired = "true";
+      button.addEventListener("click", async () => {
+        const hex = button.dataset.hex ?? "";
+        try {
+          await navigator.clipboard.writeText(hex);
+          const original = button.textContent;
+          button.textContent = "Copied";
+          button.classList.add("is-copied");
+          window.setTimeout(() => {
+            button.textContent = original;
+            button.classList.remove("is-copied");
+          }, 1600);
+        } catch {
+          button.textContent = "Failed";
+        }
+      });
+    });
+  }
+
+  wireCopyHexButtons();
+</script>

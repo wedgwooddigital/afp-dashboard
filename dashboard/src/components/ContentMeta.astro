@@ -1,0 +1,26 @@
+---
+import { formatDate } from "../lib/dashboard-nav";
+
+interface Props {
+  updated: Date;
+  changelog?: string;
+  label?: string;
+}
+
+const { updated, changelog, label = "Page info" } = Astro.props;
+---
+
+<aside class="content-meta" aria-label={label}>
+  <p class="content-meta__row">
+    <span class="content-meta__label">Last updated</span>
+    <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+  </p>
+  {
+    changelog && (
+      <p class="content-meta__row">
+        <span class="content-meta__label">Changelog</span>
+        <span>{changelog}</span>
+      </p>
+    )
+  }
+</aside>

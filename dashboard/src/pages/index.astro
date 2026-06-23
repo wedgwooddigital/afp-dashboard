@@ -2,6 +2,14 @@
 import { getCollection } from "astro:content";
 import DashboardLayout from "../layouts/DashboardLayout.astro";
 import { site } from "../config/site";
+import {
+  formatDate,
+  loadBrandPages,
+  loadSidebarNav,
+  loadToolboxPages,
+} from "../lib/dashboard-nav";
+
+const { documentNav, updateNav } = await loadSidebarNav();
 
 const documents = (
   await getCollection("documents", ({ data }) => data.clientVisible)
@@ -11,24 +19,8 @@ const updates = (
   await getCollection("updates", ({ data }) => data.clientVisible)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const formatDate = (date: Date) =>
-  date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-
-const documentNav = documents.map((document) => ({
-  href: site.paths.document(document.id),
-  label: document.data.title,
-  meta: formatDate(document.data.date),
-}));
-
-const updateNav = updates.map((update) => ({
-  href: site.paths.update(update.id),
-  label: update.data.title,
-  meta: formatDate(update.data.date),
-}));
+const brandPages = await loadBrandPages();
+const toolboxPages = await loadToolboxPages();
 
 const latestDocument = documents[0];
 const latestUpdate = updates[0];
@@ -50,27 +42,57 @@ const latestUpdate = updates[0];
         <p>{paragraph}</p>
       ))
     }
-    {
-      latestDocument && (
-        <a class="intro-panel__cta" href={site.paths.document(latestDocument.id)}>
-          <span>{site.home.intro.latestDocumentLabel}</span>
-          <strong>{latestDocument.data.title}</strong>
-          <small>{formatDate(latestDocument.data.date)}</small>
-        </a>
-      )
-    }
-    {
-      latestUpdate && (
-        <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.update(latestUpdate.id)}>
-          <span>{site.home.intro.latestUpdateLabel}</span>
-          <strong>{latestUpdate.data.title}</strong>
-          <small>{formatDate(latestUpdate.data.date)}</small>
-        </a>
-      )
-    }
+    <div class="intro-panel__links">
+      {
+        brandPages.length > 0 && (
+          <a class="intro-panel__cta" href={site.paths.brand}>
+            <span>{site.home.viewBrand}</span>
+            <strong>{site.brandSection.title}</strong>
+            <small>{brandPages.length} published page{brandPages.length === 1 ? "" : "s"}</small>
+          </a>
+        )
+      }
+      {
+        toolboxPages.length > 0 && (
+          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.toolbox}>
+            <span>{site.home.viewToolbox}</span>
+            <strong>{site.toolboxSection.title}</strong>
+            <small>{toolboxPages.length} published page{toolboxPages.length === 1 ? "" : "s"}</small>
+          </a>
+        )
+      }
+      {
+        latestDocument && (
+          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.document(latestDocument.id)}>
+            <span>{site.home.intro.latestDocumentLabel}</span>
+            <strong>{latestDocument.data.title}</strong>
+            <small>{formatDate(latestDocument.data.date)}</small>
+          </a>
+        )
+      }
+      {
+        latestUpdate && (
+          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.update(latestUpdate.id)}>
+            <span>{site.home.intro.latestUpdateLabel}</span>
+            <strong>{latestUpdate.data.title}</strong>
+            <small>{formatDate(latestUpdate.data.date)}</small>
+          </a>
+        )
+      }
+    </div>
   </section>
 
-  <section class="dashboard-grid" aria-label="Dashboard overview">
+  <section class="dashboard-grid dashboard-grid--four" aria-label="Dashboard overview">
+    <a class="metric-card" href={site.paths.brand}>
+      <span>{brandPages.length}</span>
+      <strong>{site.home.metrics.brand.label}</strong>
+      <small>{site.home.metrics.brand.hint}</small>
+    </a>
+    <a class="metric-card" href={site.paths.toolbox}>
+      <span>{toolboxPages.length}</span>
+      <strong>{site.home.metrics.toolbox.label}</strong>
+      <small>{site.home.metrics.toolbox.hint}</small>
+    </a>
     <a class="metric-card" href={site.paths.documents}>
       <span>{documents.length}</span>
       <strong>{site.home.metrics.documents.label}</strong>

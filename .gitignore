@@ -12,6 +12,13 @@ reference/site-content/.raw/
 dashboard/dist/
 dashboard/node_modules/
 dashboard/.astro/
+dashboard/public/brand-assets/
+
+# Sync-generated dashboard content (sources live in company/brand/ and toolbox/)
+content/brand/*
+!content/brand/README.md
+content/toolbox/**/*
+!content/toolbox/README.md
 
 # Fonts (commercial license — add locally after purchase)
 company/brand/assets/fonts/

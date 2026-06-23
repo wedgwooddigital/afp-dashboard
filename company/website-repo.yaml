@@ -10,6 +10,7 @@ docs:
   brand_guidelines: company/brand/branding.md
   brand_voice: company/brand/voice.md
   design_system: company/brand/design.md
+  video_frame: company/brand/frame.md
   company_overview: company/overview.md
 
 assets:

@@ -1,0 +1,38 @@
+---
+import { render } from "astro:content";
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import ColorPalette from "../../components/ColorPalette.astro";
+import ContentMeta from "../../components/ContentMeta.astro";
+import { parseBrandColors } from "../../lib/brand-colors";
+import { loadBrandPages, loadSidebarNav } from "../../lib/dashboard-nav";
+
+export async function getStaticPaths() {
+  const brandPages = await loadBrandPages();
+  return brandPages.map((page) => ({
+    params: { id: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { documentNav, updateNav } = await loadSidebarNav();
+
+const palette =
+  page.id === "guidelines" && page.body ? parseBrandColors(page.body) : [];
+---
+
+<DashboardLayout
+  title={page.data.title}
+  description={page.data.description}
+  eyebrow="Brand"
+  activeSection="brand"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <ContentMeta updated={page.data.updated} label="Brand page info" />
+  {palette.length > 0 && <ColorPalette colors={palette} />}
+  <article class="document-panel prose">
+    <Content />
+  </article>
+</DashboardLayout>

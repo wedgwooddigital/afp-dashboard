@@ -14,7 +14,7 @@ Cross-domain backlog for Ben Cribb / Air Fryer Probe ops workspace.
 
 ## Backlog
 
-- [ ] **Brand & Toolbox dashboard migration** — see `company/MIGRATION-brand-toolbox.md`
+- [ ] **Brand & Toolbox dashboard migration** — see `company/MIGRATION-brand-toolbox.md` (Phase 1: AFP toolbox authoring next)
 - [ ] Index past design deliverables in `creative/deliverables/` (logo, chart, social graphics)
 - [ ] Pitch: website rebuild option — see `reference/CLIENT-SITE-NOTES.md` (defer until video/design conversation)
 - [ ] Add `examples/social/` gold-standard posts (from brand-kit review backlog)
@@ -27,6 +27,7 @@ Cross-domain backlog for Ben Cribb / Air Fryer Probe ops workspace.
 
 ## Done
 
+- [x] Brand & Toolbox Phase 0 — sync script, dashboard Brand/Toolbox pages, toolbox skeleton (2026-06-23)
 - [x] Renamed workspace to `air_fryer_dashboard`; aligned repo/Netlify identifiers (`afp-dashboard`) — 2026-06-23
 - [x] Ops workspace bootstrapped from `client_ops_template` (2026-06-23)
 - [x] Brand kit migrated — design, voice, assets, company docs, reference, scripts

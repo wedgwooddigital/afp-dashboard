@@ -1,0 +1,58 @@
+---
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import { site } from "../../config/site";
+import {
+  formatDate,
+  loadSidebarNav,
+  loadToolboxPages,
+  toolboxKindLabels,
+  toolboxKindOrder,
+} from "../../lib/dashboard-nav";
+
+const { documentNav, updateNav } = await loadSidebarNav();
+const toolboxPages = await loadToolboxPages();
+
+const grouped = toolboxKindOrder
+  .map((kind) => ({
+    kind,
+    label: toolboxKindLabels[kind],
+    pages: toolboxPages.filter((page) => page.data.kind === kind),
+  }))
+  .filter((group) => group.pages.length > 0);
+---
+
+<DashboardLayout
+  title={site.toolboxSection.title}
+  description={site.toolboxSection.description}
+  activeSection="toolbox"
+  documents={documentNav}
+  updates={updateNav}
+>
+  {
+    grouped.length > 0 ? (
+      grouped.map((group) => (
+        <section class="panel">
+          <div class="panel__header">
+            <h2>{group.label}</h2>
+          </div>
+          <div class="card-list">
+            {group.pages.map((page) => (
+              <a class="content-card" href={site.paths.toolboxPage(page.id)}>
+                <span class="content-card__meta">
+                  {group.label} · Updated {formatDate(page.data.updated)}
+                </span>
+                <h3>{page.data.title}</h3>
+                {page.data.description && <p>{page.data.description}</p>}
+                {page.data.changelog && <p class="content-card__changelog">{page.data.changelog}</p>}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))
+    ) : (
+      <section class="panel">
+        <p class="empty-state">{site.toolboxSection.listEmpty}</p>
+      </section>
+    )
+  }
+</DashboardLayout>

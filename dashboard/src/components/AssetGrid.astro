@@ -1,0 +1,39 @@
+---
+import type { BrandAssetFile } from "../lib/brand-assets";
+
+interface Props {
+  assets: BrandAssetFile[];
+  emptyMessage?: string;
+}
+
+const { assets, emptyMessage = "No content available yet." } = Astro.props;
+
+const isImage = (name: string) => /\.(png|jpe?g|gif|webp|svg)$/i.test(name);
+---
+
+{
+  assets.length > 0 ? (
+    <div class="asset-grid" aria-label="Brand asset downloads">
+      {assets.map((asset) => (
+        <article class="asset-card">
+          <div class="asset-card__preview">
+            {isImage(asset.name) ? (
+              <img src={asset.href} alt="" loading="lazy" width="120" height="80" />
+            ) : (
+              <span class="asset-card__placeholder">{asset.category}</span>
+            )}
+          </div>
+          <div class="asset-card__meta">
+            <strong>{asset.name}</strong>
+            <span class="asset-card__category">{asset.category}</span>
+          </div>
+          <a class="asset-card__download" href={asset.href} download={asset.name}>
+            Download
+          </a>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <p class="empty-state">{emptyMessage}</p>
+  )
+}

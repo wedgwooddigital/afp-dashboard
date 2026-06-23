@@ -1,0 +1,48 @@
+---
+import DashboardLayout from "../../../layouts/DashboardLayout.astro";
+import AssetGrid from "../../../components/AssetGrid.astro";
+import { loadBrandAssets } from "../../../lib/brand-assets";
+import { loadSidebarNav } from "../../../lib/dashboard-nav";
+
+const { documentNav, updateNav } = await loadSidebarNav();
+const { logos, images, all } = loadBrandAssets();
+---
+
+<DashboardLayout
+  title="Logo & image downloads"
+  description="Download official logo files and brand imagery."
+  eyebrow="Brand · Assets"
+  activeSection="brand"
+  documents={documentNav}
+  updates={updateNav}
+>
+  {
+    logos.length > 0 && (
+      <section class="panel">
+        <div class="panel__header">
+          <h2>Logos</h2>
+        </div>
+        <AssetGrid assets={logos} />
+      </section>
+    )
+  }
+
+  {
+    images.length > 0 && (
+      <section class="panel">
+        <div class="panel__header">
+          <h2>Images</h2>
+        </div>
+        <AssetGrid assets={images} />
+      </section>
+    )
+  }
+
+  {
+    all.length === 0 && (
+      <section class="panel">
+        <AssetGrid assets={[]} emptyMessage="No content available yet." />
+      </section>
+    )
+  }
+</DashboardLayout>

@@ -12,7 +12,7 @@ interface Props {
   title: string;
   description?: string;
   eyebrow?: string;
-  activeSection?: "home" | "documents" | "updates";
+  activeSection?: "home" | "documents" | "updates" | "brand" | "toolbox";
   documents?: NavItem[];
   updates?: NavItem[];
 }
@@ -30,6 +30,8 @@ const year = new Date().getFullYear();
 
 const nav = [
   { href: site.paths.home, label: site.nav.home, section: "home" as const },
+  { href: site.paths.brand, label: site.nav.brand, section: "brand" as const },
+  { href: site.paths.toolbox, label: site.nav.toolbox, section: "toolbox" as const },
   { href: site.paths.documents, label: site.nav.documents, section: "documents" as const },
   { href: site.paths.updates, label: site.nav.updates, section: "updates" as const },
 ];
@@ -45,6 +47,7 @@ const nav = [
     {description && <meta name="description" content={description} />}
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="dashboard-shell">
       <aside class="sidebar" aria-label="Client dashboard navigation">
         <a class="sidebar__brand" href={site.paths.home}>
@@ -103,7 +106,7 @@ const nav = [
         </div>
       </aside>
 
-      <main class="dashboard-main">
+      <main class="dashboard-main" id="main-content">
         <header class="page-header">
           {eyebrow && <p class="page-header__eyebrow">{eyebrow}</p>}
           <h1>{title}</h1>

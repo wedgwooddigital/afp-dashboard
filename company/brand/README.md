@@ -13,6 +13,7 @@ When `website.brand_source: sibling_repo`, canonical brand lives in the sibling 
 | `branding.md` | Colours, typography, logo usage |
 | `voice.md` | Tone of voice and copy rules |
 | `design.md` | UI patterns (optional) |
+| `frame.md` | Video & motion guidelines (Reels, captions, export specs) |
 | `assets/logos/` | Source logo files |
 | `assets/images/` | Source photography and graphics |
 

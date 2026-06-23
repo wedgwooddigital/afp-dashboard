@@ -1,0 +1,68 @@
+---
+import { render } from "astro:content";
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import ContentMeta from "../../components/ContentMeta.astro";
+import ProseCopy from "../../components/ProseCopy.astro";
+import {
+  loadSidebarNav,
+  loadToolboxPages,
+  toolboxKindLabels,
+} from "../../lib/dashboard-nav";
+
+export async function getStaticPaths() {
+  const toolboxPages = await loadToolboxPages();
+  return toolboxPages.map((page) => ({
+    params: { id: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { documentNav, updateNav } = await loadSidebarNav();
+
+const kindLabel = toolboxKindLabels[page.data.kind];
+
+// Video support is provider-agnostic — source, type, and delivery are TBC.
+// `videoUrl` is embedded as-is in an <iframe>; do not add provider-specific
+// parsing here. If we later self-host video, switch to a <video> element and
+// extend the CSP media-src directive (see netlify.toml).
+const embedUrl = page.data.videoUrl?.trim() || undefined;
+
+const enableCopy =
+  page.data.kind === "prompts" ||
+  page.data.kind === "templates" ||
+  page.data.kind === "playbooks";
+---
+
+<DashboardLayout
+  title={page.data.title}
+  description={page.data.description}
+  eyebrow={kindLabel}
+  activeSection="toolbox"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <ContentMeta
+    updated={page.data.updated}
+    changelog={page.data.changelog}
+    label="Toolbox page info"
+  />
+  {
+    embedUrl && (
+      <div class="video-embed">
+        <iframe
+          src={embedUrl}
+          title={`${page.data.title} walkthrough`}
+          loading="lazy"
+          allow="fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        />
+      </div>
+    )
+  }
+  <article class="document-panel prose">
+    <Content />
+  </article>
+  {enableCopy && <ProseCopy />}
+</DashboardLayout>
