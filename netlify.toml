@@ -1,0 +1,34 @@
+# Client ops template dashboard — https://wdclientdashboard.netlify.app/
+# Monorepo: Astro app lives in dashboard/. Netlify must build from that folder.
+
+[build]
+  base = "dashboard"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'"
+
+[[redirects]]
+  from = "/reports"
+  to = "/documents/"
+  status = 301
+
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/documents/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/report/:id"
+  to = "/document/:id/"
+  status = 301

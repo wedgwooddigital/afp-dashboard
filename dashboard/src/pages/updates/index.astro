@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import { site } from "../../config/site";
+
+const documents = (
+  await getCollection("documents", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const updates = (
+  await getCollection("updates", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+const documentNav = documents.map((document) => ({
+  href: site.paths.document(document.id),
+  label: document.data.title,
+  meta: formatDate(document.data.date),
+}));
+
+const updateNav = updates.map((update) => ({
+  href: site.paths.update(update.id),
+  label: update.data.title,
+  meta: formatDate(update.data.date),
+}));
+---
+
+<DashboardLayout
+  title={site.updates.title}
+  description={site.updates.description}
+  activeSection="updates"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <section class="panel">
+    <div class="card-list">
+      {
+        updates.length > 0 ? (
+          updates.map((update) => (
+            <a class="content-card" href={site.paths.update(update.id)}>
+              <span class="content-card__meta">{update.data.category.toUpperCase()} · {formatDate(update.data.date)}</span>
+              <h2>{update.data.title}</h2>
+              {update.data.summary && <p>{update.data.summary}</p>}
+            </a>
+          ))
+        ) : (
+          <p class="empty-state">{site.updates.listEmpty}</p>
+        )
+      }
+    </div>
+  </section>
+</DashboardLayout>

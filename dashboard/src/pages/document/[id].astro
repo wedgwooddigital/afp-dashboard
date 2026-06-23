@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from "astro:content";
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+import { site } from "../../config/site";
+
+export async function getStaticPaths() {
+  const documents = await getCollection("documents", ({ data }) => data.clientVisible);
+  return documents.map((document) => ({
+    params: { id: document.id },
+    props: { document },
+  }));
+}
+
+const { document } = Astro.props;
+const { Content } = await render(document);
+
+const documents = (
+  await getCollection("documents", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const updates = (
+  await getCollection("updates", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+const documentNav = documents.map((item) => ({
+  href: site.paths.document(item.id),
+  label: item.data.title,
+  meta: formatDate(item.data.date),
+}));
+
+const updateNav = updates.map((item) => ({
+  href: site.paths.update(item.id),
+  label: item.data.title,
+  meta: formatDate(item.data.date),
+}));
+---
+
+<DashboardLayout
+  title={document.data.title}
+  description={document.data.description}
+  eyebrow={`${document.data.category.toUpperCase()} · ${formatDate(document.data.date)}`}
+  activeSection="documents"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <article class="document-panel prose">
+    <Content />
+  </article>
+</DashboardLayout>

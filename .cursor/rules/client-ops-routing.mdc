@@ -1,0 +1,29 @@
+# Client Ops Routing — Air Fryer Probe
+
+This repo is an operational knowledge base, not the public website. **`website.brand_source: ops_local`**
+
+Before any task, read `AGENTS.md`, `company/facts.yaml`, and `company/content-policy.md`.
+
+## Brand routing
+
+| Source | Location |
+|--------|----------|
+| Design system | `company/brand/design.md` |
+| Voice | `company/brand/voice.md` |
+| Brand facts (price, specs) | `company/brand-facts.yaml` |
+| Assets | `company/brand/assets/` · `social/assets-manifest.md` |
+| Resolve path | `./scripts/resolve-website-asset.sh logos/artboard-2.svg` |
+
+## Hard rules
+
+- **Logo:** SVG from `company/brand/assets/logos/` — never retype "AIR FRYER"
+- **Temps:** `company/temperature-guide.md` — chicken = **74°C**, no carry-over offsets
+- **Bundle:** Market 3-in-1 (probe + guide + hook); mini screwdriver in-the-box only
+- **Voice:** No *revolutionary* or *game-changing* in brand copy
+- **Follower counts:** Never cite in new copy
+
+## Reference only
+
+`reference/site-content/` · `reference/facebook-posts/` — rewrite to canonical before publishing.
+
+Client dashboard: `content/` → `dashboard/` build → Netlify password protection.

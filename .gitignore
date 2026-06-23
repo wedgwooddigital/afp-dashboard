@@ -1,0 +1,32 @@
+# Research, tool caches, and ephemeral scrapes
+research/
+.firecrawl/
+
+# Private sensitive notes (never commit)
+local/
+
+# Regenerable scrape archives
+reference/site-content/.raw/
+
+# Client dashboard build output
+dashboard/dist/
+dashboard/node_modules/
+dashboard/.astro/
+
+# Fonts (commercial license — add locally after purchase)
+company/brand/assets/fonts/
+
+# Deprecated raster logo (use company/brand/assets/logos/artboard-2.svg)
+company/brand/assets/logos/Screenshot_*.png
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Env
+.env
+.env.*

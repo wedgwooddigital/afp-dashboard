@@ -1,0 +1,61 @@
+# Machine-readable client facts for agents and automation.
+
+client:
+  legal_name: Air Fryer Probe
+  trading_name: Air Fryer Probe
+  location: United Kingdom
+  service_area: United Kingdom
+
+contacts:
+  primary_contact: Ben Cribb
+  director: Ben Cribb
+  email: ben@airfryerprobe.com
+  landline: null
+  landline_tel: null
+  mobile: null
+  mobile_tel: null
+
+website:
+  url: https://airfryerprobe.com
+  brand_source: ops_local
+  platform: shopify
+  repo:
+    name: null
+    relative_path: null
+    absolute_path: null
+
+urls:
+  public_website: https://airfryerprobe.com
+  dashboard_netlify: https://air-fryer-ops.netlify.app
+  dashboard_config: dashboard/src/config/site.ts
+
+social:
+  facebook: https://www.facebook.com/share/1ByHjNcvMR/
+  instagram: https://www.instagram.com/airfryerprobe
+  linkedin: null
+  cross_post: []
+
+google:
+  business_profile: null
+
+repos:
+  ops:
+    name: air-fryer-ops
+    relative_path: .
+    github_remote: https://github.com/wedgwooddigital/air-fryer-ops.git
+
+billing:
+  current_source: tbc
+  future_source: tbc
+  hourly_rate_gbp: null
+
+approval:
+  website_code_changes: dan
+  client_reports_publish: dan
+  social_publish: tbc
+  creative_publish: tbc
+
+scope:
+  public_website: false
+  internal_client_reports: true
+  secrets_in_git: false

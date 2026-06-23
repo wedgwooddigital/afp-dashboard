@@ -1,0 +1,230 @@
+# Air Fryer Probe — machine-readable brand facts
+# Price, specs, bundle, voice rules, URLs. Ops routing: company/facts.yaml
+# Last updated: 2026-06-23
+
+meta:
+  schema_version: 1
+  last_updated: "2026-06-23"
+  docs:
+    product: company/product.md
+    overview: company/overview.md
+    voice: company/brand/voice.md
+    temperatures: company/temperature-guide.md
+    trust: company/trust-and-proof.md
+    assets: social/assets-manifest.md
+    design: company/brand/design.md
+
+brand:
+  name: Air Fryer Probe
+  product_name: Air Fryer Temperature Probe
+  bundle_label: 3-in-1 bundle
+  market: United Kingdom
+  currency: GBP
+  currency_symbol: "£"
+  platform: Shopify
+
+urls:
+  website:
+    live: https://airfryerprobe.com
+    intended: https://airfryerprobe.co.uk # not resolving as of 2026-06
+  product:
+    shopify: https://airfryerprobe.com/products/air-fryer-temperature-probe-hanging-hook-cooked-food-temperature-guide-3-in-1-package
+  amazon:
+    asin: B0GS9PZJQ4
+    url: https://www.amazon.co.uk/dp/B0GS9PZJQ4
+    legacy_url_slug: cribbys3-in-1 # reference only — do not use in brand copy
+  social:
+    instagram: https://www.instagram.com/airfryerprobe
+    facebook: https://www.facebook.com/share/1ByHjNcvMR/
+
+contact:
+  public_email: ben@airfryerprobe.com
+  policies_email: benjaminjcribb@gmail.com # legacy in policy pages — use public_email in new copy
+
+pricing:
+  retail_gbp: 23.99
+  newsletter_discount_percent: 10
+  klarna:
+    site_mentions: true
+    applicable_at_retail_price: false # Klarna requires orders over £50; product is £23.99
+    minimum_order_gbp: 50
+
+bundle:
+  marketing: # lead with these in headlines, ads, social
+    - id: probe
+      label: Digital probe
+    - id: guide
+      label: Magnetic temperature guide
+      aliases: [Goldilocks chart, magnetic cheat sheet]
+    - id: hook
+      label: Self-adhesive hook
+      canonical_term: self-adhesive hook # not "Tactical Adhesive Hook"
+  in_box: # specs, FAQ, unboxing only
+    - id: probe
+      label: Digital probe
+    - id: guide
+      label: Magnetic temperature guide
+    - id: hook
+      label: Self-adhesive hook
+    - id: batteries
+      label: 2 × AAA 1.5V alkaline batteries
+      included: true
+    - id: mini_screwdriver
+      label: Mini screwdriver
+      marketing: false # in-box only — do not list in headlines or ads
+
+specs:
+  display: LCD screen
+  display_note: 50% larger than standard probes
+  measuring_range_c:
+    min: -50
+    max: 300
+  accuracy: "±0.5°C"
+  accuracy_range_c:
+    min: 0
+    max: 100
+  response_time_seconds: 0.6
+  waterproof: IP67
+  power: "2 × AAA 1.5V alkaline (included)"
+  material: "Plastic body + 304 stainless steel probe"
+  dimensions_mm:
+    length: 160
+    width: 36
+    height: 18
+  features:
+    - auto lift-and-wake display
+    - auto-rotate screen
+    - folding 304 stainless steel probe needle
+
+temperatures:
+  unit: celsius
+  source_chart: company/brand/assets/images/graphics/air-fryer-chart-final-preview.png
+  policy: No carry-over offsets in brand content
+  safe_minimums:
+    chicken_turkey_duck: 74
+    fish_seafood: 63
+    pork_gammon_ham: 70
+    burgers_sausages: 71
+    ready_meals_leftovers: 74
+  teaching: # educational framing — safe minimum remains 74°C for chicken
+    goldilocks_zone_c: 74
+    doom_spiral_threshold_c: 75
+    overcooked_threshold_c: 80
+    window_minutes: 2
+
+voice:
+  tone: confident, direct, knowledgeable
+  banned_words_brand_copy:
+    - revolutionary
+    - game-changing
+  banned_patterns_hero:
+    - "Are you tired of...?"
+    - "Introducing..."
+  filler_avoid:
+    - amazing
+    - incredible
+  allowed_in_brand_copy:
+    - ultimate
+  testimonial_exceptions: # OK in customer quotes, not brand-written copy
+    - game-changer
+    - game changing
+
+taglines:
+  primary: Perfect Results. Every Time.
+  secondary:
+    - Cook with Confidence
+    - Precision Made Simple
+    - Stop Guessing. Start Cooking Right.
+    - Data-Driven Cooking for Perfect Results
+  recurring_social:
+    - Ditch the timer. Trust the temp.
+    - Stop Guessing. Start Knowing.
+
+cta_buttons:
+  - Shop Now
+  - Learn More
+  - Subscribe now
+  - Grab Your Free Hook Today
+
+brand_arguments: # frameworks — rewrite, do not copy-paste from reference/facebook-posts/
+  - id: doom_spiral
+    anchor: "You have exactly 120 seconds to save your dinner."
+    parts: [Squeeze, Acceleration, Window]
+  - id: liability_loop
+    resolution: Switch from time to temperature.
+  - id: satnav_objection
+    positioning: The SatNav for your kitchen.
+
+legacy:
+  do_not_use_in_brand_copy:
+    - Cribbys
+    - Cribbys Kit
+    - Tactical Adhesive Hook
+    - Tactical Hook
+    - Precision Kit # use "3-in-1 bundle" instead
+  historical_prices_gbp:
+    amazon_intro: 19.99 # Apr 2026 promo — current retail is 23.99
+
+founder:
+  name: Ben Cribb
+  role: Founder
+  contact: ben@airfryerprobe.com
+  credentials:
+    years_in_catering: 25
+    verified_date: "2026-06"
+    ventures:
+      - Food truck
+      - Large café — Bournemouth Airport business park
+      - Café — central Bournemouth
+      - Swinging Grill — event catering, specialist BBQ
+      - Corporate catering — Dorset
+      - High-volume canteen — large English language school
+  approved_phrasing:
+    - 25 years in catering
+    - 25 years of professional catering experience
+    - 25 years professional kitchen experience # acceptable shorthand
+
+claims:
+  verified:
+    - 25 years in catering
+    - product specs in specs section
+    - named UK customer testimonials on live site
+  do_not_cite_in_copy:
+    - Facebook follower counts
+    - Instagram follower counts
+    - "300k Followers" # wrong theme footer stat
+    - Top rated on Amazon Prime # verify before reuse
+    - Klarna instalments at current retail price
+  verify_before_use:
+    - Amazon star rating or review count
+    - Environmental Health legislation framing # practitioner voice only
+
+assets:
+  manifest: social/assets-manifest.md
+  counts:
+    cdn_files: 41
+    local_only: 2
+    total_images: 43
+  logo:
+    primary: company/brand/assets/logos/artboard-2.svg
+    on_dark: company/brand/assets/logos/artboard-2-on-dark.svg
+    reverse: company/brand/assets/logos/artboard-2-reverse.svg
+    icon: company/brand/assets/logos/artboard-2-icon.svg
+  temperature_chart: company/brand/assets/images/graphics/air-fryer-chart-final-preview.png
+  photography_policy: Prefer real product photos over AI-generated
+
+design:
+  colors:
+    background: "#11151C"
+    brand_orange: "#FD9E27"
+    logo_orange: "#F9A027"
+    neutral: "#F4F4F4"
+  fonts:
+    headings:
+      family: Rubik
+      weights: [700, 800]
+      source: https://fonts.google.com/specimen/Rubik
+    body:
+      family: Roboto Mono
+    logo_only: Anton Modified
+  logo_rule: Never retype "AIR FRYER" — use SVG from company/brand/assets/logos/

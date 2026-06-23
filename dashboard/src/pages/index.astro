@@ -1,0 +1,135 @@
+---
+import { getCollection } from "astro:content";
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import { site } from "../config/site";
+
+const documents = (
+  await getCollection("documents", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const updates = (
+  await getCollection("updates", ({ data }) => data.clientVisible)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+const documentNav = documents.map((document) => ({
+  href: site.paths.document(document.id),
+  label: document.data.title,
+  meta: formatDate(document.data.date),
+}));
+
+const updateNav = updates.map((update) => ({
+  href: site.paths.update(update.id),
+  label: update.data.title,
+  meta: formatDate(update.data.date),
+}));
+
+const latestDocument = documents[0];
+const latestUpdate = updates[0];
+---
+
+<DashboardLayout
+  title={site.home.title}
+  description={site.home.description}
+  eyebrow={site.preparedFor}
+  activeSection="home"
+  documents={documentNav}
+  updates={updateNav}
+>
+  <section class="intro-panel" aria-label="Dashboard introduction">
+    <p class="section-kicker">{site.home.intro.eyebrow}</p>
+    <h2>{site.home.intro.heading}</h2>
+    {
+      site.home.intro.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))
+    }
+    {
+      latestDocument && (
+        <a class="intro-panel__cta" href={site.paths.document(latestDocument.id)}>
+          <span>{site.home.intro.latestDocumentLabel}</span>
+          <strong>{latestDocument.data.title}</strong>
+          <small>{formatDate(latestDocument.data.date)}</small>
+        </a>
+      )
+    }
+    {
+      latestUpdate && (
+        <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.update(latestUpdate.id)}>
+          <span>{site.home.intro.latestUpdateLabel}</span>
+          <strong>{latestUpdate.data.title}</strong>
+          <small>{formatDate(latestUpdate.data.date)}</small>
+        </a>
+      )
+    }
+  </section>
+
+  <section class="dashboard-grid" aria-label="Dashboard overview">
+    <a class="metric-card" href={site.paths.documents}>
+      <span>{documents.length}</span>
+      <strong>{site.home.metrics.documents.label}</strong>
+      <small>{site.home.metrics.documents.hint}</small>
+    </a>
+    <a class="metric-card" href={site.paths.updates}>
+      <span>{updates.length}</span>
+      <strong>{site.home.metrics.updates.label}</strong>
+      <small>{site.home.metrics.updates.hint}</small>
+    </a>
+  </section>
+
+  <section class="panel">
+    <div class="panel__header">
+      <div>
+        <p class="section-kicker">Recent</p>
+        <h2>{site.home.recentDocumentsHeading}</h2>
+      </div>
+      <a href={site.paths.documents}>{site.home.viewAllDocuments}</a>
+    </div>
+    <div class="card-list">
+      {
+        documents.length > 0 ? (
+          documents.slice(0, 3).map((document) => (
+            <a class="content-card" href={site.paths.document(document.id)}>
+              <span class="content-card__meta">{document.data.category.toUpperCase()} · {formatDate(document.data.date)}</span>
+              <h3>{document.data.title}</h3>
+              {document.data.description && <p>{document.data.description}</p>}
+            </a>
+          ))
+        ) : (
+          <p class="empty-state">{site.home.emptyDocuments}</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel__header">
+      <div>
+        <p class="section-kicker">Status</p>
+        <h2>{site.home.recentUpdatesHeading}</h2>
+      </div>
+      <a href={site.paths.updates}>{site.home.viewAllUpdates}</a>
+    </div>
+    <div class="card-list">
+      {
+        updates.length > 0 ? (
+          updates.slice(0, 3).map((update) => (
+            <a class="content-card" href={site.paths.update(update.id)}>
+              <span class="content-card__meta">{update.data.category.toUpperCase()} · {formatDate(update.data.date)}</span>
+              <h3>{update.data.title}</h3>
+              {update.data.summary && <p>{update.data.summary}</p>}
+            </a>
+          ))
+        ) : (
+          <p class="empty-state">{site.home.emptyUpdates}</p>
+        )
+      }
+    </div>
+  </section>
+</DashboardLayout>

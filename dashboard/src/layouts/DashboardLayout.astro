@@ -1,0 +1,122 @@
+---
+import { site } from "../config/site";
+import "../styles/dashboard.css";
+
+interface NavItem {
+  href: string;
+  label: string;
+  meta?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  eyebrow?: string;
+  activeSection?: "home" | "documents" | "updates";
+  documents?: NavItem[];
+  updates?: NavItem[];
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  activeSection = "home",
+  documents = [],
+  updates = [],
+} = Astro.props;
+
+const year = new Date().getFullYear();
+
+const nav = [
+  { href: site.paths.home, label: site.nav.home, section: "home" as const },
+  { href: site.paths.documents, label: site.nav.documents, section: "documents" as const },
+  { href: site.paths.updates, label: site.nav.updates, section: "updates" as const },
+];
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} | {site.clientTradingName} dashboard</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <aside class="sidebar" aria-label="Client dashboard navigation">
+        <a class="sidebar__brand" href={site.paths.home}>
+          <span class="sidebar__kicker">{site.clientTradingName}</span>
+          <span>{site.brand.title}</span>
+        </a>
+
+        <nav class="sidebar__nav" aria-label="Primary">
+          {
+            nav.map((item) => (
+              <a class:list={["sidebar__link", { "is-active": activeSection === item.section }]} href={item.href}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+
+        <div class="sidebar__section">
+          <h2>{site.documents.sidebarHeading}</h2>
+          <ul class="sidebar__list">
+            {
+              documents.length > 0 ? (
+                documents.slice(0, 4).map((item) => (
+                  <li>
+                    <a href={item.href}>
+                      <span>{item.label}</span>
+                      {item.meta && <small>{item.meta}</small>}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li class="sidebar__empty">{site.documents.sidebarEmpty}</li>
+              )
+            }
+          </ul>
+        </div>
+
+        <div class="sidebar__section">
+          <h2>{site.updates.sidebarHeading}</h2>
+          <ul class="sidebar__list">
+            {
+              updates.length > 0 ? (
+                updates.slice(0, 3).map((item) => (
+                  <li>
+                    <a href={item.href}>
+                      <span>{item.label}</span>
+                      {item.meta && <small>{item.meta}</small>}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li class="sidebar__empty">{site.updates.sidebarEmpty}</li>
+              )
+            }
+          </ul>
+        </div>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="page-header">
+          {eyebrow && <p class="page-header__eyebrow">{eyebrow}</p>}
+          <h1>{title}</h1>
+          {description && <p>{description}</p>}
+        </header>
+
+        <slot />
+
+        <footer class="dashboard-footer">
+          <p>Confidential — prepared for {site.clientLegalName}.</p>
+          <p>© {year} · Static dashboard · Password protection managed in Netlify.</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

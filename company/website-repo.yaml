@@ -1,0 +1,21 @@
+# Pointer map for brand docs and assets (ops_local mode).
+# Paths are relative to this ops repo root.
+
+repo:
+  name: null
+  relative_path: null
+  absolute_path: null
+
+docs:
+  brand_guidelines: company/brand/branding.md
+  brand_voice: company/brand/voice.md
+  design_system: company/brand/design.md
+  company_overview: company/overview.md
+
+assets:
+  logos: company/brand/assets/logos
+  images: company/brand/assets/images
+
+indexes: {}
+
+# Resolve assets: ./scripts/resolve-website-asset.sh logos/artboard-2.svg

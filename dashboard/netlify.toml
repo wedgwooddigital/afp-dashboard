@@ -1,0 +1,6 @@
+# Build settings are defined in the repo root netlify.toml (base = dashboard).
+# Keep this file as a pointer when browsing the dashboard/ folder only.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
