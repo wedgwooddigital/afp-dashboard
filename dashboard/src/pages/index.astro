@@ -34,18 +34,20 @@ const latestUpdate = updates[0];
   documents={documentNav}
   updates={updateNav}
 >
-  <section class="intro-panel" aria-label="Dashboard introduction">
-    <p class="section-kicker">{site.home.intro.eyebrow}</p>
-    <h2>{site.home.intro.heading}</h2>
-    {
-      site.home.intro.paragraphs.map((paragraph) => (
-        <p>{paragraph}</p>
-      ))
-    }
+  <section class="intro-panel" aria-label="Quick links">
     <div class="intro-panel__links">
       {
+        latestUpdate && (
+          <a class="intro-panel__cta" href={site.paths.update(latestUpdate.id)}>
+            <span>{site.home.latestUpdateLabel}</span>
+            <strong>{latestUpdate.data.title}</strong>
+            <small>{formatDate(latestUpdate.data.date)}</small>
+          </a>
+        )
+      }
+      {
         brandPages.length > 0 && (
-          <a class="intro-panel__cta" href={site.paths.brand}>
+          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.brand}>
             <span>{site.home.viewBrand}</span>
             <strong>{site.brandSection.title}</strong>
             <small>{brandPages.length} published page{brandPages.length === 1 ? "" : "s"}</small>
@@ -53,29 +55,11 @@ const latestUpdate = updates[0];
         )
       }
       {
-        toolboxPages.length > 0 && (
-          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.toolbox}>
-            <span>{site.home.viewToolbox}</span>
-            <strong>{site.toolboxSection.title}</strong>
-            <small>{toolboxPages.length} published page{toolboxPages.length === 1 ? "" : "s"}</small>
-          </a>
-        )
-      }
-      {
         latestDocument && (
           <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.document(latestDocument.id)}>
-            <span>{site.home.intro.latestDocumentLabel}</span>
+            <span>{site.home.latestDocumentLabel}</span>
             <strong>{latestDocument.data.title}</strong>
             <small>{formatDate(latestDocument.data.date)}</small>
-          </a>
-        )
-      }
-      {
-        latestUpdate && (
-          <a class="intro-panel__cta intro-panel__cta--secondary" href={site.paths.update(latestUpdate.id)}>
-            <span>{site.home.intro.latestUpdateLabel}</span>
-            <strong>{latestUpdate.data.title}</strong>
-            <small>{formatDate(latestUpdate.data.date)}</small>
           </a>
         )
       }

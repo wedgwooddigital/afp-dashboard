@@ -29,16 +29,8 @@ export const site = {
     title: "Overview",
     description:
       "Your private workspace for brand guidelines, content tools, project documents, and progress updates.",
-    intro: {
-      eyebrow: "Getting started",
-      heading: "Everything in one place",
-      paragraphs: [
-        "This dashboard brings together work prepared for Air Fryer Probe — brand guidelines, AI-ready prompts, project deliverables, and progress updates.",
-        "Use Brand for colours, logos, and design rules. Toolbox holds voice, prompts, and how-to playbooks. Documents and Updates cover formal project work.",
-      ],
-      latestDocumentLabel: "Latest document",
-      latestUpdateLabel: "Latest update",
-    },
+    latestDocumentLabel: "Latest document",
+    latestUpdateLabel: "Latest update",
     metrics: {
       brand: {
         label: "Brand",

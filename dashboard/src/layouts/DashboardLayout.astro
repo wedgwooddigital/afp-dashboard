@@ -26,14 +26,12 @@ const {
   updates = [],
 } = Astro.props;
 
-const year = new Date().getFullYear();
-
 const nav = [
   { href: site.paths.home, label: site.nav.home, section: "home" as const },
+  { href: site.paths.updates, label: site.nav.updates, section: "updates" as const },
+  { href: site.paths.documents, label: site.nav.documents, section: "documents" as const },
   { href: site.paths.brand, label: site.nav.brand, section: "brand" as const },
   { href: site.paths.toolbox, label: site.nav.toolbox, section: "toolbox" as const },
-  { href: site.paths.documents, label: site.nav.documents, section: "documents" as const },
-  { href: site.paths.updates, label: site.nav.updates, section: "updates" as const },
 ];
 ---
 
@@ -117,7 +115,6 @@ const nav = [
 
         <footer class="dashboard-footer">
           <p>Confidential — prepared for {site.clientLegalName}.</p>
-          <p>© {year} · Static dashboard · Password protection managed in Netlify.</p>
         </footer>
       </main>
     </div>
