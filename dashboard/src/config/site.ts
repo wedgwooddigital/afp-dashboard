@@ -1,8 +1,10 @@
 /** Client-facing dashboard copy — Air Fryer Probe */
+const clientLegalName = "Air Fryer Probe";
+
 export const site = {
   clientTradingName: "Air Fryer Probe",
-  clientLegalName: "Air Fryer Probe",
-  preparedFor: "Ben Cribb",
+  clientLegalName,
+  preparedFor: clientLegalName,
   brand: {
     title: "Client dashboard",
   },
@@ -26,9 +28,9 @@ export const site = {
     toolboxPage: (id: string) => `/toolbox/${id}/`,
   },
   home: {
-    title: "Overview",
+    title: "Home",
     description:
-      "Your private workspace for brand guidelines, content tools, project documents, and progress updates.",
+      "Your private dashboard for brand guidelines, content tools, project documents, and progress updates.",
     latestDocumentLabel: "Latest document",
     latestUpdateLabel: "Latest update",
     metrics: {

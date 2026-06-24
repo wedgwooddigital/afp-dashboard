@@ -67,6 +67,16 @@ const latestUpdate = updates[0];
   </section>
 
   <section class="dashboard-grid dashboard-grid--four" aria-label="Dashboard overview">
+    <a class="metric-card" href={site.paths.updates}>
+      <span>{updates.length}</span>
+      <strong>{site.home.metrics.updates.label}</strong>
+      <small>{site.home.metrics.updates.hint}</small>
+    </a>
+    <a class="metric-card" href={site.paths.documents}>
+      <span>{documents.length}</span>
+      <strong>{site.home.metrics.documents.label}</strong>
+      <small>{site.home.metrics.documents.hint}</small>
+    </a>
     <a class="metric-card" href={site.paths.brand}>
       <span>{brandPages.length}</span>
       <strong>{site.home.metrics.brand.label}</strong>
@@ -76,16 +86,6 @@ const latestUpdate = updates[0];
       <span>{toolboxPages.length}</span>
       <strong>{site.home.metrics.toolbox.label}</strong>
       <small>{site.home.metrics.toolbox.hint}</small>
-    </a>
-    <a class="metric-card" href={site.paths.documents}>
-      <span>{documents.length}</span>
-      <strong>{site.home.metrics.documents.label}</strong>
-      <small>{site.home.metrics.documents.hint}</small>
-    </a>
-    <a class="metric-card" href={site.paths.updates}>
-      <span>{updates.length}</span>
-      <strong>{site.home.metrics.updates.label}</strong>
-      <small>{site.home.metrics.updates.hint}</small>
     </a>
   </section>
 
